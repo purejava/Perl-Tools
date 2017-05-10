@@ -11,3 +11,5 @@ my $output = `$^X -c $file 2>&1`;
 
 print "bail out! Script file does not compile!"
     unless like( $output, qr/syntax OK$/, 'script compiles' );
+
+diag( "Testing forward_modified_email.pl, Perl $], $^X" );

@@ -9,6 +9,9 @@ package Web::FileCheck;
 use strict;
 use warnings;
 use Mail::SendEasy;
+use vars qw($VERSION @ISA);
+
+$VERSION = '0.1';
 
 my $mail = new Mail::SendEasy(
 smtp => 'localhost');
