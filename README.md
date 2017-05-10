@@ -40,5 +40,18 @@ $file_check->url();
 test -x /usr/local/sbin/check_file_on_server.pl || exit 0
 /usr/local/sbin/check_file_on_server.pl https://server.com/2017/file_to_test.tar.xz
 ```
+## forward_modified_email.pl
+Das Script wird auf einem Mail-Server eingebunden und leitet Mails eines bestimmten Absenders als Kopie automatisch weiter, wobei die Original-E-Mail als Anhang mitgeschickt und das Subject modifiziert übernommen wird.
+
+### Installation / Konfiguration
+Der Input ist die Original-E-Mail über Pipe. Der Aufruf des Scripts mittels `.procmailrc` erfolgt wie folgt:
+``` bash
+:0
+{
+     :0 c
+      * ^From.*from@sender.mail
+     | /usr/lib/cgi-bin/forward_modified_email.pl
+}
+```
 # Copyright
 Copyright (C) 2017 Ralph Plawetzki
