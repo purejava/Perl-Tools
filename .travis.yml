@@ -13,7 +13,8 @@ before_install:
 install:
     - cpanm -v --installdeps --notest .
 
-script: "perl Build.PL; ./Build test"
+script: "perl Build-FileCheck.PL; ./Build test"
+script: "perl Build-SiteUpdate.PL; ./Build test"
 # branches:
 #   only:
 #     - master
