@@ -17,8 +17,8 @@ sudo aptitude install libmail-sendeasy-perl
 ```
 Das Modul an einen geeigneten Ort (@INC) kopieren und ausführbar machen.
 ``` bash 
-cp FileCheck.pm /usr/local/lib/site_perl/FileCheck.pm
-chmod 0755 /usr/local/lib/site_perl/FileCheck.pm
+cp FileCheck.pm /usr/local/lib/site_perl/Web/FileCheck.pm
+chmod 0755 /usr/local/lib/site_perl/Web/FileCheck.pm
 ```
 Das Modul kann einfach über ein Script, zum Beispiel `/usr/local/sbin/check_file_on_server.pl`, eingebunden werden, das über ein cron-Fragment, wie beispielsweise `/etc/cron.daily/check_file`, gestartet wird:
 
@@ -52,6 +52,44 @@ Der Input ist die Original-E-Mail über Pipe. Der Aufruf des Scripts mittels `.p
       * ^From.*from@sender.mail
      | /usr/lib/cgi-bin/forward_modified_email.pl
 }
+```
+## Web::SiteUpdate
+Das Perl-Modul prüft in einem definierten Zeitabstand, ob sich der Inhalt einer Webseite geändert hat.
+Die Prüfung erfolgt anhand eines Hash-Wertes.
+Falls dies der Fall ist, wird eine E-Mail verschickt.
+
+Ich nutze das Tool, um zu prüfen, ob eine Webseite mit dem Hinweis "Coming soon ..." sich verändert.
+
+### Installation / Konfiguration
+Das Modul benötigt libmail-sendeasy-perl.
+``` bash
+sudo aptitude install libmail-sendeasy-perl
+```
+Das Modul an einen geeigneten Ort (@INC) kopieren und ausführbar machen.
+``` bash
+cp FileCheck.pm /usr/local/lib/site_perl/Web/SiteUpdate.pm
+chmod 0755 /usr/local/lib/site_perl/Web/SiteUpdate.pm
+```
+Das Modul kann einfach über ein Script, zum Beispiel `/usr/local/sbin/site_update.pl`, eingebunden werden, das über ein cron-Fragment, wie beispielsweise `/etc/cron.d/site-update`, gestartet wird:
+
+*/usr/local/sbin/site_update.pl:*
+``` bash
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Web::SiteUpdate;
+
+my $site_update = Web::SiteUpdate->new();
+
+$site_update->check();
+```
+*/etc/cron.d/siteupdate:*
+``` bash
+*/10 * * * * root [ -x /usr/local/sbin/site_update.pl ] && /usr/local/sbin/site_update.pl <URL> <hash>
+```
+Der zu testende Hash-Wert kann originär ermittelt werden mit:
+``` bash
+wget -qO- <URL> | sha256sum | awk '{print $1}'
 ```
 # Copyright
 Copyright (C) 2017 Ralph Plawetzki
