@@ -56,9 +56,9 @@ Der Input ist die Original-E-Mail über Pipe. Der Aufruf des Scripts mittels `.p
 ## Web::SiteUpdate
 Das Perl-Modul prüft in einem definierten Zeitabstand, ob sich der Inhalt einer Webseite geändert hat.
 Die Prüfung erfolgt anhand eines Hash-Wertes.
-Falls dies der Fall ist, wird eine E-Mail verschickt.
+Falls sich der Inhalt der Webseite geändert hat, wird eine E-Mail verschickt.
 
-Ich nutze das Tool, um zu prüfen, ob eine Webseite mit dem Hinweis "Coming soon ..." sich verändert.
+Ich nutze das Tool, um zu prüfen, ob eine Webseite mit dem Hinweis "Coming soon ..." aktualisiert wurde.
 
 ### Installation / Konfiguration
 Das Modul benötigt libmail-sendeasy-perl.
@@ -83,7 +83,7 @@ my $site_update = Web::SiteUpdate->new();
 
 $site_update->check();
 ```
-*/etc/cron.d/siteupdate:*
+*/etc/cron.d/site-update:*
 ``` bash
 */10 * * * * root [ -x /usr/local/sbin/site_update.pl ] && /usr/local/sbin/site_update.pl <URL> <hash>
 ```
