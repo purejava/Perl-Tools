@@ -28,7 +28,7 @@ sub new {
   return bless {}, $class;
 }
 
-# URL zur Website wird beim Aufruf des Scripts übergeben,
+# Die URL zur Website wird beim Aufruf des Scripts übergeben,
 # ebenso der Hash, gegen den geprüft wird
 sub url {
   my $site = "null";
@@ -40,7 +40,7 @@ sub url {
   # Das "-" am Ende muss noch entfernt werden
   my @chunks = split ' ', $check_hash;
   $check_hash = $chunks[0];
-  # Falls die Hases überein stimmen, endet das Script
+  # Falls die Hashes überein stimmen, endet das Script
   if ($check_hash eq $hash) { exit(0); }
 
   $status = $mail->send(
