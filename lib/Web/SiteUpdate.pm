@@ -30,7 +30,7 @@ sub new {
 
 # Die URL zur Website wird beim Aufruf des Scripts übergeben,
 # ebenso der Hash, gegen den geprüft wird
-sub url {
+sub check {
   my $site = "null";
   my $hash = "null";
   if ($#ARGV == 1) { $site = $ARGV[0]; $hash = $ARGV[1]; }
