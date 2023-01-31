@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2017-2022 Ralph Plawetzki
+# Copyright (C) 2017-2023 Ralph Plawetzki
 #
 # benötigt libmail-sendeasy-perl
 #
